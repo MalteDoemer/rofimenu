@@ -1,3 +1,5 @@
+"""A python library that can be used to create and launch menus using the rofi tool."""
+
 import subprocess
 import locale
 import os
@@ -21,6 +23,8 @@ def evaluate_path(path):
 
 
 class Action:
+    """A helper class that represents a action that can be selected from the menu"""
+
     def __init__(self, name, action):
         self.name = name
         self.action = action
@@ -34,6 +38,8 @@ class Action:
 
 
 class RofiMenu:
+    """A class to build and launch menus with the rofi tool"""
+
     def __init__(self, name, config=None, prompt=None):
         self.name = name
         self.actions = []
@@ -44,19 +50,23 @@ class RofiMenu:
             self.prompt = ""
 
     def add(self, name, cmd):
+        """Adds a new entry to the menu"""
         self.actions.append(Action(name, cmd))
 
     def extend(self, dict):
+        """Adds multiple entries to the menu, 
+        where the key of the dictionary is the name and the value the command
+        """
         for (key, val) in dict.items():
             self.add(key, val)
 
     def launch(self):
-
-        index = self.launch_rofi()
+        """Launches the menu and executes the selected entry"""
+        index = self._launch_rofi()
         if index is not None:
             self.actions[index].exec()
 
-    def launch_rofi(self):
+    def _launch_rofi(self):
         """Launches rofi and returns the index of the selected option"""
 
         args = [
