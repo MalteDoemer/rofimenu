@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+# encoding:utf8
+
+from rofimenu import RofiMenu
+
+menu = RofiMenu("Power Menu", "$HOME/.config/rofi/menu.rasi", "Action")
+
+menu.extend({
+    " Shutdown": "systemctl poweroff",
+    " Reboot": "systemctl reboot",
+    " Suspend": "systemctl suspend",
+    " Hibernate": "systemctl hibernate",
+    " Lock": "dm-tool lock",
+    " Cancle": "",
+})
+
+menu.launch()
